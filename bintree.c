@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "bintree.h"
+
+/* Tipo estruturado de uma arvore binaria generica.
+ * Possui campos de chave, e de referencias as subarvores
+ * da direita e da esquerda
+ */
+typedef struct bintree BinTree;
+struct bintree {
+    int key;
+    BinTree* left;
+    BinTree* right;
+};
+
+/* Retorna NULL para representar um no vazio de uma arvore
+ */
+BinTree* cria_vazia_bt(void) {
+    return NULL;
+}
+
+/* A funcao cria_bt cria um novo no da arvore, e o retorna.
+ * Checagem de alocacao de memoria, e exibicao de mensagem
+ * de erro adequada.
+ */
+BinTree* cria_bt(int key, BinTree* sae, BinTree* sad) {
+    BinTree* novo = (BinTree*)malloc(sizeof(BinTree));
+    if (novo == NULL) {
+    	fprintf(stderr, "ERRO ALOCACAO MEMORIA");
+	exit(1);
+    }
+    novo->left = sae;
+    novo->right = sad;
+    novo->key = key;
+
+    return novo;
+}
+
+/* A funcao imprime_bt imprime os conteudos da arvore b em pre-
+ * ordem
+ */
+void imprime_bt(BinTree* b) {
+    printf("(");
+    if (b != NULL) {
+    	printf(" %d ", b->key);
+	printf(" %p %p %p ", b, b->right, b->left);
+	imprime_bt(b->left);
+	imprime_bt(b->right);
+    }
+    printf(")");
+}
+
+/* A funcao altura_bt calcula a altura do maior ramo de uma arvore.
+ * Retorna o valor dessa altura, com base em uma arvore b
+ */
+int altura_bt(BinTree* b) {
+    if (b == NULL)
+        return 0;
+    else {
+        int alt_left = altura_bt(b->left);
+        int alt_right = altura_bt(b->right);
+
+        return ((alt_left > alt_right) ? alt_left : alt_right) + 1;
+    }
+}
+
+/* A funcao libera_bt libera a memoria alocada da arvore b
+ * Ao final da execucao, retorna NULL
+ */
+BinTree* libera_bt(BinTree* b) {
+    if (b == NULL) return NULL;
+    else { 
+        libera_bt(b->left);
+	libera_bt(b->right);
+        free(b);
+    }
+    return b;
+}
+
+/* A funcao troca_bt troca as subarvores direita e esquerda
+ * da arvore. Recebe uma arvore b, e retorna uma arvore 
+ * atualizada
+ */
+BinTree* troca_bt(BinTree* b) {
+    if (b == NULL) return b;
+    else {
+        BinTree* temp = b->left;
+	b->left = b->right;
+	b->right = temp;
+	troca_bt(b->left);
+	troca_bt(b->right);
+    }
+    return b;
+}
