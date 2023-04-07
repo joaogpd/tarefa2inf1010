@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "bintree.h"
 #include "binstree.h"
 #include "execution.h"
@@ -33,5 +34,6 @@ int main(void) {
     bt_tree = libera_bt(bt_tree);
     bst_tree = libera_bst(bst_tree);
 
+    free(rand_numbers);
     return 0;
 }

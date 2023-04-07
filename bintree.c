@@ -52,9 +52,11 @@ BinTree* insere_bt_q(BinTree* b, int key) {
  
         if (b2->left == NULL) {
             b2->left = cria_bt(key, NULL, NULL);
+            f = libera_fila(f);
             return b;
         } else if (b2->right == NULL) {
             b2->right = cria_bt(key, NULL, NULL);
+            f = libera_fila(f);
             return b;
         } else {
             if (b2->left != NULL)

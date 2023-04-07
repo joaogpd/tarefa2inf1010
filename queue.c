@@ -18,6 +18,10 @@ struct fila {
 
 Fila* cria_fila(void) {
     Fila* novo = (Fila*)malloc(sizeof(Fila));
+    if (novo == NULL) {
+        fprintf(stderr, "ERRO ALOCACAO MEMORIA");
+	exit(1);
+    }
     novo->ini = novo->fim = NULL;
     return novo;
 }
@@ -28,6 +32,10 @@ int vazia_fila(Fila* f) {
 
 void insere_fila(Fila* f, BinTree* b) {
     No* novo_no = (No*)malloc(sizeof(No));
+    if (novo_no == NULL) {
+        fprintf(stderr, "ERRO ALOCACAO MEMORIA");
+	exit(1);
+    }
     novo_no->data = b;
     novo_no->next = NULL;
     if (f->ini == NULL) {
@@ -58,5 +66,6 @@ Fila* libera_fila(Fila* f) {
 	p = p->next;
 	free(r);
     }
+    free(f);
     return NULL;
 }
