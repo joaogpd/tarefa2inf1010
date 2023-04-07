@@ -75,7 +75,7 @@ void imprime_bt(BinTree* b) {
     printf("(");
     if (b != NULL) {
     	printf(" %d ", b->key);
-	// printf(" %p %p %p ", b, b->right, b->left);
+	printf(" %p %p %p ", b, b->right, b->left);
 	imprime_bt(b->left);
 	imprime_bt(b->right);
     }
