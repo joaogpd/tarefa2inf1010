@@ -15,7 +15,8 @@ int main(void) {
     printf("\n");
 
     printf("binaria de busca?\narvore 1 (bt): %d\narvore 2 (bst): %d\n",
-		    0, verifica_bst(bst_tree));
+		    verifica_bt(bt_tree), 
+		    verifica_bst(bst_tree));
 
     printf("altura?\narvore 1 (bt): %d\narvore 2 (bst): %d\n",
 		    altura_bt(bt_tree),
