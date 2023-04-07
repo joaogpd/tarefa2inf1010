@@ -68,7 +68,9 @@ BinTree* insere_bt_q(BinTree* b, int key) {
     f = libera_fila(f);
     return b;
 }
-
+/* A funcao verifica_bt verifica se uma arvore e ou nao uma
+ * arvore binaria de busca, retornando 0 ou 1
+ */
 int verifica_bt(BinTree* b) {
     if (b == NULL) return 1;
     if (b->right != NULL && b->key > b->right->key) return 0;
