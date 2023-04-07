@@ -10,6 +10,7 @@ BinTree* cria_vazia_bt(void);
  * Recebe as subarvores a direita, a esquerda, e uma chave
  */
 BinTree* cria_bt(int key, BinTree* sae, BinTree* sad);
+/* Verifica se a arvore b e binaria de busca */
 int verifica_bt(BinTree* b);
 /* Insere um no na arvore
  * Recebe uma arvore e uma chave
