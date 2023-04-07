@@ -2,6 +2,7 @@
 #define BINTREE_H
 
 typedef struct bintree BinTree;
+typedef struct fila Fila;
 
 /* Retorna NULL para representar no vazio */
 BinTree* cria_vazia_bt(void);
@@ -9,6 +10,11 @@ BinTree* cria_vazia_bt(void);
  * Recebe as subarvores a direita, a esquerda, e uma chave
  */
 BinTree* cria_bt(int key, BinTree* sae, BinTree* sad);
+
+/* Insere um no na arvore
+ * Recebe uma arvore e uma chave
+ */
+BinTree* insere_bt_q(BinTree* b, int key);
 /* Imprime os conteudos da arvore */
 void imprime_bt(BinTree* b);
 /* Retorna a altura da arvore */

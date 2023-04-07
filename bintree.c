@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bintree.h"
+#include "queue.h"
 
 /* Tipo estruturado de uma arvore binaria generica.
  * Possui campos de chave, e de referencias as subarvores
@@ -32,9 +33,40 @@ BinTree* cria_bt(int key, BinTree* sae, BinTree* sad) {
     novo->left = sae;
     novo->right = sad;
     novo->key = key;
-
     return novo;
 }
+
+
+/* Insere um no na arvore b, de chave key.
+ * Retorna a versao atualizada da arvore
+ */
+BinTree* insere_bt_q(BinTree* b, int key) {
+    if (b == NULL) {
+        b = cria_bt(key, NULL, NULL);
+	return b;
+    }
+    Fila* f = cria_fila();
+    insere_fila(f, b);
+    while (!vazia_fila(f)) {
+        BinTree* b2 = retira_fila(f);
+ 
+        if (b2->left == NULL) {
+            b2->left = cria_bt(key, NULL, NULL);
+            return b;
+        } else if (b2->right == NULL) {
+            b2->right = cria_bt(key, NULL, NULL);
+            return b;
+        } else {
+            if (b2->left != NULL)
+                insere_fila(f, b2->left);
+            if (b2->right != NULL)
+                insere_fila(f, b2->right);
+        }
+    }
+    f = libera_fila(f);
+    return b;
+}
+
 
 /* A funcao imprime_bt imprime os conteudos da arvore b em pre-
  * ordem
@@ -43,7 +75,7 @@ void imprime_bt(BinTree* b) {
     printf("(");
     if (b != NULL) {
     	printf(" %d ", b->key);
-	printf(" %p %p %p ", b, b->right, b->left);
+	// printf(" %p %p %p ", b, b->right, b->left);
 	imprime_bt(b->left);
 	imprime_bt(b->right);
     }
