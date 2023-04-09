@@ -5,7 +5,7 @@
 typedef struct binstree BinSTree;
 struct binstree {
     int key;
-    BinSTree* pai;
+    BinSTree* parent;
     BinSTree* left;
     BinSTree* right;
 };
@@ -15,40 +15,31 @@ BinSTree* cria_bst(void) {
     return NULL;
 }
 
-BinSTree* cria_no_bst(BinSTree* pai, int key) {
-    BinSTree* novo = (BinSTree*)malloc(sizeof(BinSTree));
-    if (novo == NULL) {
-        fprintf(stderr, "ERRO ALOCACAO MEMORIA");
-	exit(1);
-    }
-    novo->key = key;
-    novo->left = novo->right = NULL;
-    novo->pai = pai;
-    return novo;
-}
-
 /* Insere um no na arvore b, de chave key. 
  * Retorna a versao atualizada da arvore
  */
-BinSTree* insere_bst(BinSTree* y, BinSTree* b, int key) {
-    if (b == NULL)
- 	b = cria_no_bst(y, key);
+BinSTree* insere_bst(BinSTree* b, int key) {
+    if (b == NULL) {
+        b = (BinSTree*)malloc(sizeof(BinSTree));
+        b->key = key;
+        b->left = NULL;
+	b->right = NULL;
+    }
     else if (key < b->key)
-        b->left = insere_bst(b, b->left, key);
+        b->left = insere_bst(b->left, key);
     else if (key > b->key)
-        b->right = insere_bst(b, b->right, key);
-    
+        b->right = insere_bst(b->right, key);
     return b;
 }
 
 /* A funcao imprime_bt imprime os conteudos da arvore b em pre-
- * ordem. Imprime tambem o endereco do no pai
+ * ordem
  */
 void imprime_bst(BinSTree* b) {
     printf("(");
     if (b != NULL) {
         printf(" %d ", b->key);
-	printf(" %p %p %p %p ", b->pai, b, b->left, b->right);
+	printf(" %p %p %p ", b, b->left, b->right);
         imprime_bst(b->left);
         imprime_bst(b->right);
     }
@@ -61,12 +52,10 @@ void imprime_bst(BinSTree* b) {
  */
 int verifica_bst(BinSTree* b) {
     if (b == NULL) return 1;
-    if (b->right != NULL && b->key >= b->right->key) return 0;
-    else if (b->left != NULL && b->key <= b->left->key) return 0;
-    else {
-        verifica_bst(b->right);
-        verifica_bst(b->left);
-    }
+    if (b->right != NULL && b->key > b->right->key) return 0;
+    else if (b->left != NULL && b->key < b->left->key) return 0;
+    verifica_bst(b->right);
+    verifica_bst(b->left);
     return 1;
 }
 

@@ -5,11 +5,10 @@ typedef struct binstree BinSTree;
 
 /* Retorna NULL para representar a criacao */
 BinSTree* cria_bst(void);
-BinSTree* cria_no_bst(BinSTree* y, int key);
 /* Insere um no na arvore 
  * Recebe uma arvore e uma chave
  */
-BinSTree* insere_bst(BinSTree* y, BinSTree* b, int key);
+BinSTree* insere_bst(BinSTree* b, int key);
 /* Imprime o conteudo da arvore */
 void imprime_bst(BinSTree* b);
 /* Verifica se a arvore e binaria */

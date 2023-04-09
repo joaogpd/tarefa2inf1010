@@ -39,7 +39,7 @@ BinTree* insert_level(int* nums, int n) {
 BinSTree* insert_bst(int* nums, int n) {
     BinSTree* bst_new = cria_bst();
     for (int i = 0; i < n; i++) {
-       bst_new = insere_bst(NULL, bst_new, nums[i]);
+        bst_new = insere_bst(bst_new, nums[i]);
     }
     return bst_new;
 }

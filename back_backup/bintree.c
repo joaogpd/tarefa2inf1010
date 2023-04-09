@@ -73,8 +73,8 @@ BinTree* insere_bt_q(BinTree* b, int key) {
  */
 int verifica_bt(BinTree* b) {
     if (b == NULL) return 1;
-    if (b->right != NULL && b->key >= b->right->key) return 0;
-    else if (b->left != NULL && b->key <= b->left->key) return 0;
+    if (b->right != NULL && b->key > b->right->key) return 0;
+    else if (b->left != NULL && b->key < b->left->key) return 0;
     verifica_bt(b->right);
     verifica_bt(b->left);
     return 1;
